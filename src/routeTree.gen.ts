@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DashbroadImport } from './routes/dashbroad'
 import { Route as UnauthIndexImport } from './routes/_unauth/index'
 import { Route as UnauthRegisterImport } from './routes/_unauth/register'
 import { Route as UnauthForgotPasswordImport } from './routes/_unauth/forgotPassword'
 
 // Create/Update Routes
+
+const DashbroadRoute = DashbroadImport.update({
+  id: '/dashbroad',
+  path: '/dashbroad',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const UnauthIndexRoute = UnauthIndexImport.update({
   id: '/_unauth/',
@@ -39,6 +46,13 @@ const UnauthForgotPasswordRoute = UnauthForgotPasswordImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dashbroad': {
+      id: '/dashbroad'
+      path: '/dashbroad'
+      fullPath: '/dashbroad'
+      preLoaderRoute: typeof DashbroadImport
+      parentRoute: typeof rootRoute
+    }
     '/_unauth/forgotPassword': {
       id: '/_unauth/forgotPassword'
       path: '/forgotPassword'
@@ -66,12 +80,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  '/dashbroad': typeof DashbroadRoute
   '/forgotPassword': typeof UnauthForgotPasswordRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '/dashbroad': typeof DashbroadRoute
   '/forgotPassword': typeof UnauthForgotPasswordRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
@@ -79,6 +95,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/dashbroad': typeof DashbroadRoute
   '/_unauth/forgotPassword': typeof UnauthForgotPasswordRoute
   '/_unauth/register': typeof UnauthRegisterRoute
   '/_unauth/': typeof UnauthIndexRoute
@@ -86,20 +103,27 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/forgotPassword' | '/register' | '/'
+  fullPaths: '/dashbroad' | '/forgotPassword' | '/register' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/forgotPassword' | '/register' | '/'
-  id: '__root__' | '/_unauth/forgotPassword' | '/_unauth/register' | '/_unauth/'
+  to: '/dashbroad' | '/forgotPassword' | '/register' | '/'
+  id:
+    | '__root__'
+    | '/dashbroad'
+    | '/_unauth/forgotPassword'
+    | '/_unauth/register'
+    | '/_unauth/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  DashbroadRoute: typeof DashbroadRoute
   UnauthForgotPasswordRoute: typeof UnauthForgotPasswordRoute
   UnauthRegisterRoute: typeof UnauthRegisterRoute
   UnauthIndexRoute: typeof UnauthIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  DashbroadRoute: DashbroadRoute,
   UnauthForgotPasswordRoute: UnauthForgotPasswordRoute,
   UnauthRegisterRoute: UnauthRegisterRoute,
   UnauthIndexRoute: UnauthIndexRoute,
@@ -115,10 +139,14 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/dashbroad",
         "/_unauth/forgotPassword",
         "/_unauth/register",
         "/_unauth/"
       ]
+    },
+    "/dashbroad": {
+      "filePath": "dashbroad.tsx"
     },
     "/_unauth/forgotPassword": {
       "filePath": "_unauth/forgotPassword.tsx"
