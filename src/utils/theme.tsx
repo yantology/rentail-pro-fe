@@ -47,9 +47,9 @@ export const setTheme = (themeMode: ThemeMode): Theme => {
     return getTheme()
 }
 
-export const listenToThemeChanges = (callback: (theme: Theme) => void): () => void => {
+export const listenToThemeChanges = (callback: () => void): () => void => {
     const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleThemeChange = () => callback(getTheme())
+    const handleThemeChange = () => callback()
 
     systemThemeQuery.addEventListener('change', handleThemeChange)
     window.addEventListener('storage', handleThemeChange)
@@ -63,8 +63,20 @@ export const listenToThemeChanges = (callback: (theme: Theme) => void): () => vo
 // Theme context type and initial value
 export type ThemeContext = {
     theme: Theme
+    setTheme: (mode: ThemeMode) => void
+    listenToThemeChanges: () => () => void
 }
 
 export const themeContext: ThemeContext = {
-    theme: getTheme()
+    theme: getTheme(),
+    setTheme: (mode: ThemeMode) => {
+        setTheme(mode)
+        themeContext.theme = getTheme()
+    },
+    listenToThemeChanges: () => {
+        const handleThemeUpdate = () => {
+            themeContext.theme = getTheme()
+        }
+        return listenToThemeChanges(handleThemeUpdate)
+    },
 }
