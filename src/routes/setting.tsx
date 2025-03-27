@@ -1,14 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Moon, Sun, Globe } from 'lucide-react'
 import { Header } from '@/components/custom/header'
-import { useState, useEffect } from 'react'
-import { toggleTheme, broadcastThemeChange, getCurrentTheme } from '@/utils/theme'
+import type { ThemeMode } from '@/utils/theme'
+import { useEffect, useState } from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export const Route = createFileRoute('/setting')({
+  loader: async ({ context }) => {
+    const { theme } = context
+    return { theme }
+  },
   component: RouteComponent,
 });
 
@@ -33,18 +42,13 @@ function SettingItem({
 }
 
 function RouteComponent() {
-  const theme = getCurrentTheme();
-  const [isDarkMode, setIsDarkMode] = useState(() => theme === 'dark');
+  const { theme } = Route.useLoaderData()
+  const [currentTheme, setCurrentTheme] = useState<ThemeMode>(theme.getThemeMode())
 
   useEffect(() => {
-    setIsDarkMode(theme === 'dark');
-  }, [theme]);
+    theme.setTheme(currentTheme)
+  }, [currentTheme])
 
-  const handleThemeChange = () => {
-    const newTheme = toggleTheme();
-    setIsDarkMode(newTheme === 'dark');
-    broadcastThemeChange(newTheme); // Broadcast the change to other tabs
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,26 +74,28 @@ function RouteComponent() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6 px-2 sm:px-6">
-                  <SettingItem
+                    <SettingItem
                     title="Display Theme"
-                    description="Choose between light and dark mode for your interface."
-                  >
-                    <div className="flex items-center gap-2 justify-end min-w-[120px]">
-                      <Switch
-                        checked={isDarkMode}
-                        onCheckedChange={handleThemeChange}
-                        id="theme-mode"
-                        className="data-[state=checked]:bg-primary"
-                      />
-                      <Label htmlFor="theme-mode" className="cursor-pointer">
-                        {isDarkMode ? (
-                          <Moon className="h-4 w-4" />
-                        ) : (
-                          <Sun className="h-4 w-4" />
-                        )}
-                      </Label>
+                    description="Choose your preferred theme mode for the interface."
+                    >
+                    <div className="flex items-center gap-2 min-w-[200px]">
+                      {currentTheme === 'dark' ? (
+                      <Moon className="h-4 w-4 text-muted-foreground hidden sm:block" />
+                      ) : (
+                      <Sun className="h-4 w-4 text-muted-foreground hidden sm:block" />
+                      )}
+                      <Select value={currentTheme} onValueChange={(value) => setCurrentTheme(value as ThemeMode)}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select theme" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="light">Light</SelectItem>
+                          <SelectItem value="dark">Dark</SelectItem>
+                          <SelectItem value="system">System</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
-                  </SettingItem>
+                    </SettingItem>
 
                   <Separator />
 
@@ -99,10 +105,15 @@ function RouteComponent() {
                   >
                     <div className="flex items-center gap-2 min-w-[200px]">
                       <Globe className="h-4 w-4 text-muted-foreground hidden sm:block" />
-                      <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
-                        <option value="en">English</option>
-                        <option value="id">Indonesian</option>
-                      </select>
+                      <Select defaultValue="en">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select language" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="en">English</SelectItem>
+                          <SelectItem value="id">Indonesian</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </SettingItem>
                 </CardContent>

@@ -1,3 +1,4 @@
+
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,11 +9,9 @@ import { routeTree } from './routeTree.gen.ts'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 import { auth } from './utils/auth.tsx';
-import { initializeTheme, setupSystemThemeListener } from './utils/theme.tsx';
+import { themeContext } from '@/utils/theme';
 
 export const queryClient = new QueryClient()
-
-
 
 // Create a new router instance
 const router = createRouter({
@@ -25,7 +24,8 @@ const router = createRouter({
     </div>
   ),
   context: {
-    auth: undefined!, // We'll inject this when we render
+    auth: undefined!,
+    theme: undefined!,
     queryClient,
   },
   defaultPreload: "intent",
@@ -42,10 +42,8 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
-	// Initialize the theme
-  initializeTheme();
-
-	setupSystemThemeListener()
+  // Initialize theme and set up listener
+  themeContext.listenToThemeChanges();
 
   return (
     <RouterProvider 
@@ -53,6 +51,7 @@ function App() {
       defaultPreload="intent"
       context={{
         auth,
+        theme: themeContext,
       }}
     />
   );
