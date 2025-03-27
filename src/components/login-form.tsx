@@ -38,25 +38,17 @@ export function LoginForm({
       email: "",
       password: "",
     },
-    onSubmit: async ({ value }) => {
-      try {
-        loginSchema.parse(value);
-        console.log("Mengirim data login:", value);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        await onSubmitCredentials(value.email, value.password);
-      } catch (error) {
-        console.error("Error saat submit:", error);
-        if (error instanceof z.ZodError) {
-          return {
-            status: "error" as const,
-            message: "Data login tidak valid",
-          };
+    validators: {
+      onSubmitAsync: async (values) => {
+        try {
+          await onSubmitCredentials(values.value.email, values.value.password);
+        } catch (error) {
+          if (error instanceof Error) {
+            return error.message;
+          }
+          return "Terjadi kesalahan saat login";
         }
-        return {
-          status: "error" as const,
-          message: "Gagal terhubung ke server",
-        };
-      }
+      },
     },
   });
 
@@ -103,7 +95,7 @@ export function LoginForm({
                       placeholder="m@example.com"
                       className={cn(
                         field.state.meta.isTouched &&
-                          field.state.meta.errors.length
+                          field.state.meta.errors.length > 0
                           ? "border-red-500"
                           : ""
                       )}
@@ -112,7 +104,7 @@ export function LoginForm({
                       onBlur={field.handleBlur}
                     />
                     {field.state.meta.isTouched &&
-                    field.state.meta.errors.length ? (
+                    field.state.meta.errors.length > 0 ? (
                       <p className="text-sm text-red-600">
                         {field.state.meta.errors}
                       </p>
@@ -132,7 +124,8 @@ export function LoginForm({
                       if (error instanceof z.ZodError) {
                         return error.errors.map((e) => e.message).join(", ");
                       }
-                                          }
+                      return "Password tidak valid";
+                    }
                   },
                 }}
               >
@@ -152,7 +145,7 @@ export function LoginForm({
                       type="password"
                       className={cn(
                         field.state.meta.isTouched &&
-                          field.state.meta.errors.length
+                          field.state.meta.errors.length > 0
                           ? "border-red-500"
                           : ""
                       )}
@@ -162,7 +155,7 @@ export function LoginForm({
                     />
 
                     {field.state.meta.isTouched &&
-                    field.state.meta.errors.length ? (
+                    field.state.meta.errors.length > 0 ? (
                       <p className="text-sm text-red-600">
                         {field.state.meta.errors}
                       </p>
@@ -174,15 +167,17 @@ export function LoginForm({
               <form.Subscribe>
                 {(state) => (
                   <>
-                    {state.errors.length ? (
+                    {state.errors && state.errors.length > 0 ? (
                       <div className="p-3 bg-red-50 text-red-700 rounded border border-red-200">
                         {state.errors}
                       </div>
-                    ) : null}
+                    ) : (
+                      <h1 className="text-sm text-gray-500">Login to your account</h1>
+                    )}
 
                     {state.isSubmitSuccessful && (
                       <div className="p-3 bg-green-50 text-green-700 rounded border border-green-200">
-                        Login berhasil!
+                        Logged in successfully
                       </div>
                     )}
 

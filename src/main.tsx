@@ -8,27 +8,30 @@ import { routeTree } from './routeTree.gen.ts'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 import { auth } from './utils/auth.tsx';
+import { initializeTheme, setupSystemThemeListener } from './utils/theme.tsx';
 
 export const queryClient = new QueryClient()
 
+
+
 // Create a new router instance
 const router = createRouter({
-	routeTree,
-	defaultPendingComponent: () => <div>Loading...</div>,
-	defaultErrorComponent: ({ error }) => (
-		<div>
-			<h1>Uh oh!</h1>
-			<p>{error.message}</p>
-		</div>
-	),
-	context: {
-		auth : undefined!, // We'll inject this when we render
-		queryClient,
-	},
-	defaultPreload: "intent",
-	scrollRestoration: true,
-	defaultStructuralSharing: true,
-	defaultPreloadStaleTime: 0,
+  routeTree,
+  defaultPendingComponent: () => <div>Loading...</div>,
+  defaultErrorComponent: ({ error }) => (
+    <div>
+      <h1>Uh oh!</h1>
+      <p>{error.message}</p>
+    </div>
+  ),
+  context: {
+    auth: undefined!, // We'll inject this when we render
+    queryClient,
+  },
+  defaultPreload: "intent",
+  scrollRestoration: true,
+  defaultStructuralSharing: true,
+  defaultPreloadStaleTime: 0,
 });
 
 // Register the router instance for type safety
@@ -39,16 +42,20 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
-	return (
-		<RouterProvider 
-		router={router}
-		defaultPreload="intent"
-		context={{
-			auth,
-		}
-		}
-		/>
-	);
+	// Initialize the theme
+  initializeTheme();
+
+	setupSystemThemeListener()
+
+  return (
+    <RouterProvider 
+      router={router}
+      defaultPreload="intent"
+      context={{
+        auth,
+      }}
+    />
+  );
 }
 
 // Render the app
@@ -58,7 +65,7 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <QueryClientProvider client={queryClient}>
       <App />
-      </QueryClientProvider>
+    </QueryClientProvider>
   )
 }
 

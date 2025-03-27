@@ -33,15 +33,13 @@ interface AuthFormProps extends React.ComponentPropsWithoutRef<"div"> {
     passwordConfirmation: string,
     token: string
   ) => Promise<void>;
-  title: string;
-  description: string;
+  type: "register" | "reset-password";
   getToken: (email: string) => Promise<void>;
 }
 
 export function AuthForm({
   handleSubmit,
-  title,
-  description,
+  type,
   getToken,
   className,
   ...props
@@ -92,7 +90,7 @@ export function AuthForm({
       if (error instanceof z.ZodError) {
         throw new Error("Format email tidak valid");
       }
-      throw new Error("Gagal mengirim token ke email");
+      throw new Error(`Gagal mengirim token ke email karena ${error}`);
     }
   };
 
@@ -102,8 +100,8 @@ export function AuthForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-2xl">{type === 'register' ? 'Register Account' : 'Reset Password'}</CardTitle>
+          <CardDescription>{type === 'register' ? 'Create a new account' : 'Reset your password'}</CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -175,7 +173,7 @@ export function AuthForm({
               >
                 {(field) => (
                   <div className="grid gap-2">
-                    <Label htmlFor={field.name}>Password</Label>
+                    <Label htmlFor={field.name}>{type === 'register' ? 'Password' : 'New Password'}</Label>
                     <Input
                       id={field.name}
                       type="password"
@@ -224,7 +222,7 @@ export function AuthForm({
               >
                 {(field) => (
                   <div className="grid gap-2">
-                    <Label htmlFor={field.name}>Password Confirmation</Label>
+                    <Label htmlFor={field.name}>{type === 'register' ? 'Confirm Password' : 'Confirm New Password'}</Label>
                     <Input
                       id={field.name}
                       type="password"
@@ -329,7 +327,7 @@ export function AuthForm({
                       className="w-full"
                       disabled={state.isSubmitting}
                     >
-                      {state.isSubmitting ? "Memproses..." : "Reset Password"}
+                      {state.isSubmitting ? "Memproses..." : type === 'register' ? 'Register' : 'Reset Password'}
                     </Button>
                   </>
                 )}

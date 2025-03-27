@@ -13,18 +13,20 @@ export const login = async (email: string, password: string): Promise<MessageRes
       },
       body: JSON.stringify({ email, password }),
     });
-
+    if (!response.ok) {
+      throw new Error('Login failed: ' + response.statusText);
+    }
     const data = await response.json();
     return { success: response.ok, message: data.message };
   } catch (error) {
-    return { success: false, message: 'An error occurred during login' };
+    throw new Error('Login error: ' + (error instanceof Error ? error.message : 'An unexpected error occurred'));
   }
 };
 
 export const logout = async (): Promise<void> => {
   try {
     await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
-      method: 'POST',
+      method: 'DELETE',
       credentials: 'include',
     });
   } catch (error) {
@@ -67,7 +69,14 @@ export type Auth = {
 
 export const auth: Auth = {
   status: 'loggedOut',
-  login,
-  logout,
+  login: async (email: string, password: string) => {
+    const response = await login(email, password);
+    auth.status = response.success ? 'loggedIn' : 'loggedOut';
+    return response;
+  },
+  logout: async () => {
+    await logout();
+    auth.status = 'loggedOut';
+  },
   refreshTokens,
 }

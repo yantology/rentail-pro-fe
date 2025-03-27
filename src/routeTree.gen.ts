@@ -11,16 +11,30 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as DashbroadImport } from './routes/dashbroad'
+import { Route as SettingImport } from './routes/setting'
+import { Route as ProfileImport } from './routes/profile'
+import { Route as HomepageImport } from './routes/homepage'
 import { Route as UnauthIndexImport } from './routes/_unauth/index'
 import { Route as UnauthRegisterImport } from './routes/_unauth/register'
 import { Route as UnauthForgotPasswordImport } from './routes/_unauth/forgotPassword'
 
 // Create/Update Routes
 
-const DashbroadRoute = DashbroadImport.update({
-  id: '/dashbroad',
-  path: '/dashbroad',
+const SettingRoute = SettingImport.update({
+  id: '/setting',
+  path: '/setting',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileRoute = ProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const HomepageRoute = HomepageImport.update({
+  id: '/homepage',
+  path: '/homepage',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,11 +60,25 @@ const UnauthForgotPasswordRoute = UnauthForgotPasswordImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dashbroad': {
-      id: '/dashbroad'
-      path: '/dashbroad'
-      fullPath: '/dashbroad'
-      preLoaderRoute: typeof DashbroadImport
+    '/homepage': {
+      id: '/homepage'
+      path: '/homepage'
+      fullPath: '/homepage'
+      preLoaderRoute: typeof HomepageImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileImport
+      parentRoute: typeof rootRoute
+    }
+    '/setting': {
+      id: '/setting'
+      path: '/setting'
+      fullPath: '/setting'
+      preLoaderRoute: typeof SettingImport
       parentRoute: typeof rootRoute
     }
     '/_unauth/forgotPassword': {
@@ -80,14 +108,18 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/dashbroad': typeof DashbroadRoute
+  '/homepage': typeof HomepageRoute
+  '/profile': typeof ProfileRoute
+  '/setting': typeof SettingRoute
   '/forgotPassword': typeof UnauthForgotPasswordRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/dashbroad': typeof DashbroadRoute
+  '/homepage': typeof HomepageRoute
+  '/profile': typeof ProfileRoute
+  '/setting': typeof SettingRoute
   '/forgotPassword': typeof UnauthForgotPasswordRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
@@ -95,7 +127,9 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/dashbroad': typeof DashbroadRoute
+  '/homepage': typeof HomepageRoute
+  '/profile': typeof ProfileRoute
+  '/setting': typeof SettingRoute
   '/_unauth/forgotPassword': typeof UnauthForgotPasswordRoute
   '/_unauth/register': typeof UnauthRegisterRoute
   '/_unauth/': typeof UnauthIndexRoute
@@ -103,12 +137,26 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dashbroad' | '/forgotPassword' | '/register' | '/'
+  fullPaths:
+    | '/homepage'
+    | '/profile'
+    | '/setting'
+    | '/forgotPassword'
+    | '/register'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/dashbroad' | '/forgotPassword' | '/register' | '/'
+  to:
+    | '/homepage'
+    | '/profile'
+    | '/setting'
+    | '/forgotPassword'
+    | '/register'
+    | '/'
   id:
     | '__root__'
-    | '/dashbroad'
+    | '/homepage'
+    | '/profile'
+    | '/setting'
     | '/_unauth/forgotPassword'
     | '/_unauth/register'
     | '/_unauth/'
@@ -116,14 +164,18 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  DashbroadRoute: typeof DashbroadRoute
+  HomepageRoute: typeof HomepageRoute
+  ProfileRoute: typeof ProfileRoute
+  SettingRoute: typeof SettingRoute
   UnauthForgotPasswordRoute: typeof UnauthForgotPasswordRoute
   UnauthRegisterRoute: typeof UnauthRegisterRoute
   UnauthIndexRoute: typeof UnauthIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  DashbroadRoute: DashbroadRoute,
+  HomepageRoute: HomepageRoute,
+  ProfileRoute: ProfileRoute,
+  SettingRoute: SettingRoute,
   UnauthForgotPasswordRoute: UnauthForgotPasswordRoute,
   UnauthRegisterRoute: UnauthRegisterRoute,
   UnauthIndexRoute: UnauthIndexRoute,
@@ -139,14 +191,22 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/dashbroad",
+        "/homepage",
+        "/profile",
+        "/setting",
         "/_unauth/forgotPassword",
         "/_unauth/register",
         "/_unauth/"
       ]
     },
-    "/dashbroad": {
-      "filePath": "dashbroad.tsx"
+    "/homepage": {
+      "filePath": "homepage.tsx"
+    },
+    "/profile": {
+      "filePath": "profile.tsx"
+    },
+    "/setting": {
+      "filePath": "setting.tsx"
     },
     "/_unauth/forgotPassword": {
       "filePath": "_unauth/forgotPassword.tsx"

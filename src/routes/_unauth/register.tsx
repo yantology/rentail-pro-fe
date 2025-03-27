@@ -1,5 +1,6 @@
 import AuthForm from '@/components/auth-form';
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { getToken as requestToken, register as registerUser } from '@/api/auth';
 
 export const Route = createFileRoute('/_unauth/register')({
   component: RouteComponent,
@@ -15,16 +16,8 @@ function RouteComponent() {
     token: string
   ) => {
     try {
-      // Simulate a registration request
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      // Validate if passwords match
-      if (password !== passwordConfirmation) {
-        throw new Error("Passwords don't match");
-      }
-      
-      // Simulate a successful registration
-      console.log("Registration successful:", { email, token });
+      // Call the actual registration API
+      await registerUser(email, "", password, passwordConfirmation, token);
       
       // Navigate to login page on successful registration
       navigate({ to: '/' });
@@ -36,13 +29,8 @@ function RouteComponent() {
 
   const getToken = async (email: string) => {
     try {
-      // Simulate a token request for email verification
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // Simulate a successful token generation
-      console.log("Verification token sent to email:", email);
-      
-      // No navigation here as we stay on the same page
+      // Call the actual token request API
+      await requestToken('registration', email);
     } catch (error) {
       console.error('Token request error:', error);
       throw new Error(error instanceof Error ? error.message : 'Failed to send verification token.');
@@ -55,6 +43,7 @@ function RouteComponent() {
           <AuthForm 
           handleSubmit={handleSubmit}
           getToken={getToken}
+          submitButtonText="Register"
           title="Register Account"
           description="Create a new account. Enter your email to receive a verification token."
         />
