@@ -432,7 +432,7 @@ function RouteComponent() {
                     </div>
                   </div>
                   <p className="italic text-zinc-300">
-                    "Mengelola 3 toko dulunya kacau—platform ini menghemat waktu saya 10+ jam seminggu! Sekarang saya bisa fokus pada pengembangan bisnis daripada sibuk dengan spreadsheet."
+                    &ldquo;Mengelola 3 toko dulunya kacau—platform ini menghemat waktu saya 10+ jam seminggu! Sekarang saya bisa fokus pada pengembangan bisnis daripada sibuk dengan spreadsheet.&rdquo;
                   </p>
                 </CardContent>
               </Card>
@@ -451,7 +451,7 @@ function RouteComponent() {
                     </div>
                   </div>
                   <p className="italic text-zinc-300">
-                    "Kemampuan untuk mengelola setiap restoran secara terpisah tetapi melihat laporan konsolidasi telah menjadi game-changer. Staf kami beradaptasi dengan sistem dalam hitungan hari."
+                    &ldquo;Kemampuan untuk mengelola setiap restoran secara terpisah tetapi melihat laporan konsolidasi telah menjadi game-changer. Staf kami beradaptasi dengan sistem dalam hitungan hari.&rdquo;
                   </p>
                 </CardContent>
               </Card>
@@ -470,7 +470,7 @@ function RouteComponent() {
                     </div>
                   </div>
                   <p className="italic text-zinc-300">
-                    "Manajemen inventaris di seluruh butik saya sangat lancar. Saya dapat melacak gaya mana yang terjual di setiap lokasi dan menyesuaikan pembelian saya dengan tepat."
+                    &ldquo;Manajemen inventaris di seluruh butik saya sangat lancar. Saya dapat melacak gaya mana yang terjual di setiap lokasi dan menyesuaikan pembelian saya dengan tepat.&rdquo;
                   </p>
                 </CardContent>
               </Card>
