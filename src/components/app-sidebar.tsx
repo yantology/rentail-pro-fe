@@ -1,15 +1,13 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
+  Database,
   GalleryVerticalEnd,
   Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  Package2,
+  ShoppingBag,
+  Store,
+  User,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -23,133 +21,127 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import type { LinkOptions } from "@tanstack/react-router"
+
+type User = {
+  name: string
+  email: string
+  avatar: string
+}
+
+type Team = {
+  name: string
+  logo: React.ComponentType
+  plan: string
+}
+
+type NavMainItem = {
+  title: string
+  link : LinkOptions
+}
+
+type NavMainGroup = {
+  title: string
+  url: string
+  icon?: React.ComponentType
+  isActive?: boolean
+  items: NavMainItem[]
+}
+
+const user: User = {
+  name: "shadcn",
+  email : "m@example.com",
+  avatar: "/avatars/shadcn.jpg",
+}
+
+const teams: Team[] = [
+  {
+    name: "Acme Inc",
+    logo: GalleryVerticalEnd,
+    plan: "Enterprise",
+  },
+  {
+    name: "Acme Corp.",
+    logo: AudioWaveform,
+    plan: "Startup",
+  },
+  {
+    name: "Evil Corp.",
+    logo: Map,
+    plan: "Free",
+  },
+]
+
+const navMainGroup : NavMainGroup[] = [
+  {
+    title: "Master Data",
+    url: "#",
+    icon: Database,
+    isActive: true,
+    items: [
+      {
+        title: "Products",
+        link: {
+          to: "/tenant/master-data/products"
+        }
+      },
+    ],
+  },
+  {
+    title: "User",
+    url: "#",
+    icon: User,
+    isActive: true,
+    items: [
+      {
+        title: "User Management",
+        link: {
+          to: "/tenant/user/user-management"
+        }
+      },
+    ],
+  },
+  {
+    title: "Sales",
+    url: "#",
+    icon: ShoppingBag,
+    isActive: true,
+    items: [
+      {
+        title: "Chasier",
+        link: {
+          to: "/tenant/penjualan/chasier"
+        }
+      },
+      {
+        title: "Sales Invoice",
+        link: {
+          to: "/tenant/penjualan/sales-invoice"
+        }
+      },
+    ],
+  },
+]
+
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
+
   projects: [
     {
-      name: "Design Engineering",
+      name: "Store Management",
       url: "#",
-      icon: Frame,
+      icon: Store,
     },
     {
       name: "Sales & Marketing",
       url: "#",
-      icon: PieChart,
+      icon: ShoppingBag,
     },
     {
-      name: "Travel",
+      name: "Inventory",
       url: "#",
-      icon: Map,
+      icon: Package2,
     },
   ],
 }
@@ -158,14 +150,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher teams={teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navMainGroup} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

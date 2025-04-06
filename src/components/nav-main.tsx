@@ -1,6 +1,5 @@
-"use client"
-
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight } from "lucide-react"
+import { Link, type LinkOptions } from "@tanstack/react-router"
 
 import {
   Collapsible,
@@ -18,19 +17,23 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 
+type NavMainItem = {
+  title: string
+  link: LinkOptions
+}
+
+type NavMainGroup = {
+  title: string
+  url: string
+  icon?: React.ComponentType
+  isActive?: boolean
+  items: NavMainItem[]
+}
+
 export function NavMain({
   items,
 }: {
-  items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
-    items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+  items: NavMainGroup[]
 }) {
   return (
     <SidebarGroup>
@@ -56,9 +59,9 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link {...subItem.link}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

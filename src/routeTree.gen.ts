@@ -17,24 +17,12 @@ import { Route as ProfileImport } from './routes/profile'
 import { Route as HomepageImport } from './routes/homepage'
 import { Route as UnauthIndexImport } from './routes/_unauth/index'
 import { Route as UnauthRegisterImport } from './routes/_unauth/register'
+import { Route as UnauthLandingpageImport } from './routes/_unauth/landingpage'
 import { Route as UnauthForgotPasswordImport } from './routes/_unauth/forgotPassword'
-import { Route as TenantMasterDataUnitImport } from './routes/tenant/master-data/unit'
-import { Route as TenantMasterDataSuppliersImport } from './routes/tenant/master-data/suppliers'
-import { Route as TenantMasterDataStoresImport } from './routes/tenant/master-data/stores'
-import { Route as TenantMasterDataSalesImport } from './routes/tenant/master-data/sales'
+import { Route as TenantUserUserManagementImport } from './routes/tenant/user/user-management'
+import { Route as TenantPenjualanSalesInvoiceImport } from './routes/tenant/penjualan/sales-invoice'
+import { Route as TenantPenjualanChasierImport } from './routes/tenant/penjualan/chasier'
 import { Route as TenantMasterDataProductsImport } from './routes/tenant/master-data/products'
-import { Route as TenantMasterDataDiscountsperiodesImport } from './routes/tenant/master-data/discounts_periodes'
-import { Route as TenantMasterDataCustomersCategoriesImport } from './routes/tenant/master-data/customers-categories'
-import { Route as TenantMasterDataCustomersImport } from './routes/tenant/master-data/customers'
-import { Route as TenantMasterDataCustomerPointImport } from './routes/tenant/master-data/customer-point'
-import { Route as TenantMasterDataCategoriesImport } from './routes/tenant/master-data/categories'
-import { Route as TenantMasterDataBrandImport } from './routes/tenant/master-data/brand'
-import { Route as TenantMasterDataBankImport } from './routes/tenant/master-data/bank'
-import { Route as TenantMasterDataAditionalCostImport } from './routes/tenant/master-data/aditional-cost'
-import { Route as TenantStockStockhistoryImport } from './routes/tenant/_stock/stock_history'
-import { Route as TenantStockOpnameImport } from './routes/tenant/_stock/opname'
-import { Route as TenantStockItemsImport } from './routes/tenant/_stock/items'
-import { Route as TenantStockDefectaImport } from './routes/tenant/_stock/defecta'
 
 // Create/Update Routes
 
@@ -74,117 +62,40 @@ const UnauthRegisterRoute = UnauthRegisterImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const UnauthLandingpageRoute = UnauthLandingpageImport.update({
+  id: '/_unauth/landingpage',
+  path: '/landingpage',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const UnauthForgotPasswordRoute = UnauthForgotPasswordImport.update({
   id: '/_unauth/forgotPassword',
   path: '/forgotPassword',
   getParentRoute: () => rootRoute,
 } as any)
 
-const TenantMasterDataUnitRoute = TenantMasterDataUnitImport.update({
-  id: '/master-data/unit',
-  path: '/master-data/unit',
+const TenantUserUserManagementRoute = TenantUserUserManagementImport.update({
+  id: '/user/user-management',
+  path: '/user/user-management',
   getParentRoute: () => TenantRoute,
 } as any)
 
-const TenantMasterDataSuppliersRoute = TenantMasterDataSuppliersImport.update({
-  id: '/master-data/suppliers',
-  path: '/master-data/suppliers',
-  getParentRoute: () => TenantRoute,
-} as any)
+const TenantPenjualanSalesInvoiceRoute =
+  TenantPenjualanSalesInvoiceImport.update({
+    id: '/penjualan/sales-invoice',
+    path: '/penjualan/sales-invoice',
+    getParentRoute: () => TenantRoute,
+  } as any)
 
-const TenantMasterDataStoresRoute = TenantMasterDataStoresImport.update({
-  id: '/master-data/stores',
-  path: '/master-data/stores',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantMasterDataSalesRoute = TenantMasterDataSalesImport.update({
-  id: '/master-data/sales',
-  path: '/master-data/sales',
+const TenantPenjualanChasierRoute = TenantPenjualanChasierImport.update({
+  id: '/penjualan/chasier',
+  path: '/penjualan/chasier',
   getParentRoute: () => TenantRoute,
 } as any)
 
 const TenantMasterDataProductsRoute = TenantMasterDataProductsImport.update({
   id: '/master-data/products',
   path: '/master-data/products',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantMasterDataDiscountsperiodesRoute =
-  TenantMasterDataDiscountsperiodesImport.update({
-    id: '/master-data/discounts_periodes',
-    path: '/master-data/discounts_periodes',
-    getParentRoute: () => TenantRoute,
-  } as any)
-
-const TenantMasterDataCustomersCategoriesRoute =
-  TenantMasterDataCustomersCategoriesImport.update({
-    id: '/master-data/customers-categories',
-    path: '/master-data/customers-categories',
-    getParentRoute: () => TenantRoute,
-  } as any)
-
-const TenantMasterDataCustomersRoute = TenantMasterDataCustomersImport.update({
-  id: '/master-data/customers',
-  path: '/master-data/customers',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantMasterDataCustomerPointRoute =
-  TenantMasterDataCustomerPointImport.update({
-    id: '/master-data/customer-point',
-    path: '/master-data/customer-point',
-    getParentRoute: () => TenantRoute,
-  } as any)
-
-const TenantMasterDataCategoriesRoute = TenantMasterDataCategoriesImport.update(
-  {
-    id: '/master-data/categories',
-    path: '/master-data/categories',
-    getParentRoute: () => TenantRoute,
-  } as any,
-)
-
-const TenantMasterDataBrandRoute = TenantMasterDataBrandImport.update({
-  id: '/master-data/brand',
-  path: '/master-data/brand',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantMasterDataBankRoute = TenantMasterDataBankImport.update({
-  id: '/master-data/bank',
-  path: '/master-data/bank',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantMasterDataAditionalCostRoute =
-  TenantMasterDataAditionalCostImport.update({
-    id: '/master-data/aditional-cost',
-    path: '/master-data/aditional-cost',
-    getParentRoute: () => TenantRoute,
-  } as any)
-
-const TenantStockStockhistoryRoute = TenantStockStockhistoryImport.update({
-  id: '/_stock/stock_history',
-  path: '/stock_history',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantStockOpnameRoute = TenantStockOpnameImport.update({
-  id: '/_stock/opname',
-  path: '/opname',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantStockItemsRoute = TenantStockItemsImport.update({
-  id: '/_stock/items',
-  path: '/items',
-  getParentRoute: () => TenantRoute,
-} as any)
-
-const TenantStockDefectaRoute = TenantStockDefectaImport.update({
-  id: '/_stock/defecta',
-  path: '/defecta',
   getParentRoute: () => TenantRoute,
 } as any)
 
@@ -227,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthForgotPasswordImport
       parentRoute: typeof rootRoute
     }
+    '/_unauth/landingpage': {
+      id: '/_unauth/landingpage'
+      path: '/landingpage'
+      fullPath: '/landingpage'
+      preLoaderRoute: typeof UnauthLandingpageImport
+      parentRoute: typeof rootRoute
+    }
     '/_unauth/register': {
       id: '/_unauth/register'
       path: '/register'
@@ -241,90 +159,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthIndexImport
       parentRoute: typeof rootRoute
     }
-    '/tenant/_stock/defecta': {
-      id: '/tenant/_stock/defecta'
-      path: '/defecta'
-      fullPath: '/tenant/defecta'
-      preLoaderRoute: typeof TenantStockDefectaImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/_stock/items': {
-      id: '/tenant/_stock/items'
-      path: '/items'
-      fullPath: '/tenant/items'
-      preLoaderRoute: typeof TenantStockItemsImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/_stock/opname': {
-      id: '/tenant/_stock/opname'
-      path: '/opname'
-      fullPath: '/tenant/opname'
-      preLoaderRoute: typeof TenantStockOpnameImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/_stock/stock_history': {
-      id: '/tenant/_stock/stock_history'
-      path: '/stock_history'
-      fullPath: '/tenant/stock_history'
-      preLoaderRoute: typeof TenantStockStockhistoryImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/aditional-cost': {
-      id: '/tenant/master-data/aditional-cost'
-      path: '/master-data/aditional-cost'
-      fullPath: '/tenant/master-data/aditional-cost'
-      preLoaderRoute: typeof TenantMasterDataAditionalCostImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/bank': {
-      id: '/tenant/master-data/bank'
-      path: '/master-data/bank'
-      fullPath: '/tenant/master-data/bank'
-      preLoaderRoute: typeof TenantMasterDataBankImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/brand': {
-      id: '/tenant/master-data/brand'
-      path: '/master-data/brand'
-      fullPath: '/tenant/master-data/brand'
-      preLoaderRoute: typeof TenantMasterDataBrandImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/categories': {
-      id: '/tenant/master-data/categories'
-      path: '/master-data/categories'
-      fullPath: '/tenant/master-data/categories'
-      preLoaderRoute: typeof TenantMasterDataCategoriesImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/customer-point': {
-      id: '/tenant/master-data/customer-point'
-      path: '/master-data/customer-point'
-      fullPath: '/tenant/master-data/customer-point'
-      preLoaderRoute: typeof TenantMasterDataCustomerPointImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/customers': {
-      id: '/tenant/master-data/customers'
-      path: '/master-data/customers'
-      fullPath: '/tenant/master-data/customers'
-      preLoaderRoute: typeof TenantMasterDataCustomersImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/customers-categories': {
-      id: '/tenant/master-data/customers-categories'
-      path: '/master-data/customers-categories'
-      fullPath: '/tenant/master-data/customers-categories'
-      preLoaderRoute: typeof TenantMasterDataCustomersCategoriesImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/discounts_periodes': {
-      id: '/tenant/master-data/discounts_periodes'
-      path: '/master-data/discounts_periodes'
-      fullPath: '/tenant/master-data/discounts_periodes'
-      preLoaderRoute: typeof TenantMasterDataDiscountsperiodesImport
-      parentRoute: typeof TenantImport
-    }
     '/tenant/master-data/products': {
       id: '/tenant/master-data/products'
       path: '/master-data/products'
@@ -332,32 +166,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TenantMasterDataProductsImport
       parentRoute: typeof TenantImport
     }
-    '/tenant/master-data/sales': {
-      id: '/tenant/master-data/sales'
-      path: '/master-data/sales'
-      fullPath: '/tenant/master-data/sales'
-      preLoaderRoute: typeof TenantMasterDataSalesImport
+    '/tenant/penjualan/chasier': {
+      id: '/tenant/penjualan/chasier'
+      path: '/penjualan/chasier'
+      fullPath: '/tenant/penjualan/chasier'
+      preLoaderRoute: typeof TenantPenjualanChasierImport
       parentRoute: typeof TenantImport
     }
-    '/tenant/master-data/stores': {
-      id: '/tenant/master-data/stores'
-      path: '/master-data/stores'
-      fullPath: '/tenant/master-data/stores'
-      preLoaderRoute: typeof TenantMasterDataStoresImport
+    '/tenant/penjualan/sales-invoice': {
+      id: '/tenant/penjualan/sales-invoice'
+      path: '/penjualan/sales-invoice'
+      fullPath: '/tenant/penjualan/sales-invoice'
+      preLoaderRoute: typeof TenantPenjualanSalesInvoiceImport
       parentRoute: typeof TenantImport
     }
-    '/tenant/master-data/suppliers': {
-      id: '/tenant/master-data/suppliers'
-      path: '/master-data/suppliers'
-      fullPath: '/tenant/master-data/suppliers'
-      preLoaderRoute: typeof TenantMasterDataSuppliersImport
-      parentRoute: typeof TenantImport
-    }
-    '/tenant/master-data/unit': {
-      id: '/tenant/master-data/unit'
-      path: '/master-data/unit'
-      fullPath: '/tenant/master-data/unit'
-      preLoaderRoute: typeof TenantMasterDataUnitImport
+    '/tenant/user/user-management': {
+      id: '/tenant/user/user-management'
+      path: '/user/user-management'
+      fullPath: '/tenant/user/user-management'
+      preLoaderRoute: typeof TenantUserUserManagementImport
       parentRoute: typeof TenantImport
     }
   }
@@ -366,45 +193,17 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface TenantRouteChildren {
-  TenantStockDefectaRoute: typeof TenantStockDefectaRoute
-  TenantStockItemsRoute: typeof TenantStockItemsRoute
-  TenantStockOpnameRoute: typeof TenantStockOpnameRoute
-  TenantStockStockhistoryRoute: typeof TenantStockStockhistoryRoute
-  TenantMasterDataAditionalCostRoute: typeof TenantMasterDataAditionalCostRoute
-  TenantMasterDataBankRoute: typeof TenantMasterDataBankRoute
-  TenantMasterDataBrandRoute: typeof TenantMasterDataBrandRoute
-  TenantMasterDataCategoriesRoute: typeof TenantMasterDataCategoriesRoute
-  TenantMasterDataCustomerPointRoute: typeof TenantMasterDataCustomerPointRoute
-  TenantMasterDataCustomersRoute: typeof TenantMasterDataCustomersRoute
-  TenantMasterDataCustomersCategoriesRoute: typeof TenantMasterDataCustomersCategoriesRoute
-  TenantMasterDataDiscountsperiodesRoute: typeof TenantMasterDataDiscountsperiodesRoute
   TenantMasterDataProductsRoute: typeof TenantMasterDataProductsRoute
-  TenantMasterDataSalesRoute: typeof TenantMasterDataSalesRoute
-  TenantMasterDataStoresRoute: typeof TenantMasterDataStoresRoute
-  TenantMasterDataSuppliersRoute: typeof TenantMasterDataSuppliersRoute
-  TenantMasterDataUnitRoute: typeof TenantMasterDataUnitRoute
+  TenantPenjualanChasierRoute: typeof TenantPenjualanChasierRoute
+  TenantPenjualanSalesInvoiceRoute: typeof TenantPenjualanSalesInvoiceRoute
+  TenantUserUserManagementRoute: typeof TenantUserUserManagementRoute
 }
 
 const TenantRouteChildren: TenantRouteChildren = {
-  TenantStockDefectaRoute: TenantStockDefectaRoute,
-  TenantStockItemsRoute: TenantStockItemsRoute,
-  TenantStockOpnameRoute: TenantStockOpnameRoute,
-  TenantStockStockhistoryRoute: TenantStockStockhistoryRoute,
-  TenantMasterDataAditionalCostRoute: TenantMasterDataAditionalCostRoute,
-  TenantMasterDataBankRoute: TenantMasterDataBankRoute,
-  TenantMasterDataBrandRoute: TenantMasterDataBrandRoute,
-  TenantMasterDataCategoriesRoute: TenantMasterDataCategoriesRoute,
-  TenantMasterDataCustomerPointRoute: TenantMasterDataCustomerPointRoute,
-  TenantMasterDataCustomersRoute: TenantMasterDataCustomersRoute,
-  TenantMasterDataCustomersCategoriesRoute:
-    TenantMasterDataCustomersCategoriesRoute,
-  TenantMasterDataDiscountsperiodesRoute:
-    TenantMasterDataDiscountsperiodesRoute,
   TenantMasterDataProductsRoute: TenantMasterDataProductsRoute,
-  TenantMasterDataSalesRoute: TenantMasterDataSalesRoute,
-  TenantMasterDataStoresRoute: TenantMasterDataStoresRoute,
-  TenantMasterDataSuppliersRoute: TenantMasterDataSuppliersRoute,
-  TenantMasterDataUnitRoute: TenantMasterDataUnitRoute,
+  TenantPenjualanChasierRoute: TenantPenjualanChasierRoute,
+  TenantPenjualanSalesInvoiceRoute: TenantPenjualanSalesInvoiceRoute,
+  TenantUserUserManagementRoute: TenantUserUserManagementRoute,
 }
 
 const TenantRouteWithChildren =
@@ -416,25 +215,13 @@ export interface FileRoutesByFullPath {
   '/setting': typeof SettingRoute
   '/tenant': typeof TenantRouteWithChildren
   '/forgotPassword': typeof UnauthForgotPasswordRoute
+  '/landingpage': typeof UnauthLandingpageRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
-  '/tenant/defecta': typeof TenantStockDefectaRoute
-  '/tenant/items': typeof TenantStockItemsRoute
-  '/tenant/opname': typeof TenantStockOpnameRoute
-  '/tenant/stock_history': typeof TenantStockStockhistoryRoute
-  '/tenant/master-data/aditional-cost': typeof TenantMasterDataAditionalCostRoute
-  '/tenant/master-data/bank': typeof TenantMasterDataBankRoute
-  '/tenant/master-data/brand': typeof TenantMasterDataBrandRoute
-  '/tenant/master-data/categories': typeof TenantMasterDataCategoriesRoute
-  '/tenant/master-data/customer-point': typeof TenantMasterDataCustomerPointRoute
-  '/tenant/master-data/customers': typeof TenantMasterDataCustomersRoute
-  '/tenant/master-data/customers-categories': typeof TenantMasterDataCustomersCategoriesRoute
-  '/tenant/master-data/discounts_periodes': typeof TenantMasterDataDiscountsperiodesRoute
   '/tenant/master-data/products': typeof TenantMasterDataProductsRoute
-  '/tenant/master-data/sales': typeof TenantMasterDataSalesRoute
-  '/tenant/master-data/stores': typeof TenantMasterDataStoresRoute
-  '/tenant/master-data/suppliers': typeof TenantMasterDataSuppliersRoute
-  '/tenant/master-data/unit': typeof TenantMasterDataUnitRoute
+  '/tenant/penjualan/chasier': typeof TenantPenjualanChasierRoute
+  '/tenant/penjualan/sales-invoice': typeof TenantPenjualanSalesInvoiceRoute
+  '/tenant/user/user-management': typeof TenantUserUserManagementRoute
 }
 
 export interface FileRoutesByTo {
@@ -443,25 +230,13 @@ export interface FileRoutesByTo {
   '/setting': typeof SettingRoute
   '/tenant': typeof TenantRouteWithChildren
   '/forgotPassword': typeof UnauthForgotPasswordRoute
+  '/landingpage': typeof UnauthLandingpageRoute
   '/register': typeof UnauthRegisterRoute
   '/': typeof UnauthIndexRoute
-  '/tenant/defecta': typeof TenantStockDefectaRoute
-  '/tenant/items': typeof TenantStockItemsRoute
-  '/tenant/opname': typeof TenantStockOpnameRoute
-  '/tenant/stock_history': typeof TenantStockStockhistoryRoute
-  '/tenant/master-data/aditional-cost': typeof TenantMasterDataAditionalCostRoute
-  '/tenant/master-data/bank': typeof TenantMasterDataBankRoute
-  '/tenant/master-data/brand': typeof TenantMasterDataBrandRoute
-  '/tenant/master-data/categories': typeof TenantMasterDataCategoriesRoute
-  '/tenant/master-data/customer-point': typeof TenantMasterDataCustomerPointRoute
-  '/tenant/master-data/customers': typeof TenantMasterDataCustomersRoute
-  '/tenant/master-data/customers-categories': typeof TenantMasterDataCustomersCategoriesRoute
-  '/tenant/master-data/discounts_periodes': typeof TenantMasterDataDiscountsperiodesRoute
   '/tenant/master-data/products': typeof TenantMasterDataProductsRoute
-  '/tenant/master-data/sales': typeof TenantMasterDataSalesRoute
-  '/tenant/master-data/stores': typeof TenantMasterDataStoresRoute
-  '/tenant/master-data/suppliers': typeof TenantMasterDataSuppliersRoute
-  '/tenant/master-data/unit': typeof TenantMasterDataUnitRoute
+  '/tenant/penjualan/chasier': typeof TenantPenjualanChasierRoute
+  '/tenant/penjualan/sales-invoice': typeof TenantPenjualanSalesInvoiceRoute
+  '/tenant/user/user-management': typeof TenantUserUserManagementRoute
 }
 
 export interface FileRoutesById {
@@ -471,25 +246,13 @@ export interface FileRoutesById {
   '/setting': typeof SettingRoute
   '/tenant': typeof TenantRouteWithChildren
   '/_unauth/forgotPassword': typeof UnauthForgotPasswordRoute
+  '/_unauth/landingpage': typeof UnauthLandingpageRoute
   '/_unauth/register': typeof UnauthRegisterRoute
   '/_unauth/': typeof UnauthIndexRoute
-  '/tenant/_stock/defecta': typeof TenantStockDefectaRoute
-  '/tenant/_stock/items': typeof TenantStockItemsRoute
-  '/tenant/_stock/opname': typeof TenantStockOpnameRoute
-  '/tenant/_stock/stock_history': typeof TenantStockStockhistoryRoute
-  '/tenant/master-data/aditional-cost': typeof TenantMasterDataAditionalCostRoute
-  '/tenant/master-data/bank': typeof TenantMasterDataBankRoute
-  '/tenant/master-data/brand': typeof TenantMasterDataBrandRoute
-  '/tenant/master-data/categories': typeof TenantMasterDataCategoriesRoute
-  '/tenant/master-data/customer-point': typeof TenantMasterDataCustomerPointRoute
-  '/tenant/master-data/customers': typeof TenantMasterDataCustomersRoute
-  '/tenant/master-data/customers-categories': typeof TenantMasterDataCustomersCategoriesRoute
-  '/tenant/master-data/discounts_periodes': typeof TenantMasterDataDiscountsperiodesRoute
   '/tenant/master-data/products': typeof TenantMasterDataProductsRoute
-  '/tenant/master-data/sales': typeof TenantMasterDataSalesRoute
-  '/tenant/master-data/stores': typeof TenantMasterDataStoresRoute
-  '/tenant/master-data/suppliers': typeof TenantMasterDataSuppliersRoute
-  '/tenant/master-data/unit': typeof TenantMasterDataUnitRoute
+  '/tenant/penjualan/chasier': typeof TenantPenjualanChasierRoute
+  '/tenant/penjualan/sales-invoice': typeof TenantPenjualanSalesInvoiceRoute
+  '/tenant/user/user-management': typeof TenantUserUserManagementRoute
 }
 
 export interface FileRouteTypes {
@@ -500,25 +263,13 @@ export interface FileRouteTypes {
     | '/setting'
     | '/tenant'
     | '/forgotPassword'
+    | '/landingpage'
     | '/register'
     | '/'
-    | '/tenant/defecta'
-    | '/tenant/items'
-    | '/tenant/opname'
-    | '/tenant/stock_history'
-    | '/tenant/master-data/aditional-cost'
-    | '/tenant/master-data/bank'
-    | '/tenant/master-data/brand'
-    | '/tenant/master-data/categories'
-    | '/tenant/master-data/customer-point'
-    | '/tenant/master-data/customers'
-    | '/tenant/master-data/customers-categories'
-    | '/tenant/master-data/discounts_periodes'
     | '/tenant/master-data/products'
-    | '/tenant/master-data/sales'
-    | '/tenant/master-data/stores'
-    | '/tenant/master-data/suppliers'
-    | '/tenant/master-data/unit'
+    | '/tenant/penjualan/chasier'
+    | '/tenant/penjualan/sales-invoice'
+    | '/tenant/user/user-management'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/homepage'
@@ -526,25 +277,13 @@ export interface FileRouteTypes {
     | '/setting'
     | '/tenant'
     | '/forgotPassword'
+    | '/landingpage'
     | '/register'
     | '/'
-    | '/tenant/defecta'
-    | '/tenant/items'
-    | '/tenant/opname'
-    | '/tenant/stock_history'
-    | '/tenant/master-data/aditional-cost'
-    | '/tenant/master-data/bank'
-    | '/tenant/master-data/brand'
-    | '/tenant/master-data/categories'
-    | '/tenant/master-data/customer-point'
-    | '/tenant/master-data/customers'
-    | '/tenant/master-data/customers-categories'
-    | '/tenant/master-data/discounts_periodes'
     | '/tenant/master-data/products'
-    | '/tenant/master-data/sales'
-    | '/tenant/master-data/stores'
-    | '/tenant/master-data/suppliers'
-    | '/tenant/master-data/unit'
+    | '/tenant/penjualan/chasier'
+    | '/tenant/penjualan/sales-invoice'
+    | '/tenant/user/user-management'
   id:
     | '__root__'
     | '/homepage'
@@ -552,25 +291,13 @@ export interface FileRouteTypes {
     | '/setting'
     | '/tenant'
     | '/_unauth/forgotPassword'
+    | '/_unauth/landingpage'
     | '/_unauth/register'
     | '/_unauth/'
-    | '/tenant/_stock/defecta'
-    | '/tenant/_stock/items'
-    | '/tenant/_stock/opname'
-    | '/tenant/_stock/stock_history'
-    | '/tenant/master-data/aditional-cost'
-    | '/tenant/master-data/bank'
-    | '/tenant/master-data/brand'
-    | '/tenant/master-data/categories'
-    | '/tenant/master-data/customer-point'
-    | '/tenant/master-data/customers'
-    | '/tenant/master-data/customers-categories'
-    | '/tenant/master-data/discounts_periodes'
     | '/tenant/master-data/products'
-    | '/tenant/master-data/sales'
-    | '/tenant/master-data/stores'
-    | '/tenant/master-data/suppliers'
-    | '/tenant/master-data/unit'
+    | '/tenant/penjualan/chasier'
+    | '/tenant/penjualan/sales-invoice'
+    | '/tenant/user/user-management'
   fileRoutesById: FileRoutesById
 }
 
@@ -580,6 +307,7 @@ export interface RootRouteChildren {
   SettingRoute: typeof SettingRoute
   TenantRoute: typeof TenantRouteWithChildren
   UnauthForgotPasswordRoute: typeof UnauthForgotPasswordRoute
+  UnauthLandingpageRoute: typeof UnauthLandingpageRoute
   UnauthRegisterRoute: typeof UnauthRegisterRoute
   UnauthIndexRoute: typeof UnauthIndexRoute
 }
@@ -590,6 +318,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingRoute: SettingRoute,
   TenantRoute: TenantRouteWithChildren,
   UnauthForgotPasswordRoute: UnauthForgotPasswordRoute,
+  UnauthLandingpageRoute: UnauthLandingpageRoute,
   UnauthRegisterRoute: UnauthRegisterRoute,
   UnauthIndexRoute: UnauthIndexRoute,
 }
@@ -609,6 +338,7 @@ export const routeTree = rootRoute
         "/setting",
         "/tenant",
         "/_unauth/forgotPassword",
+        "/_unauth/landingpage",
         "/_unauth/register",
         "/_unauth/"
       ]
@@ -625,27 +355,17 @@ export const routeTree = rootRoute
     "/tenant": {
       "filePath": "tenant.tsx",
       "children": [
-        "/tenant/_stock/defecta",
-        "/tenant/_stock/items",
-        "/tenant/_stock/opname",
-        "/tenant/_stock/stock_history",
-        "/tenant/master-data/aditional-cost",
-        "/tenant/master-data/bank",
-        "/tenant/master-data/brand",
-        "/tenant/master-data/categories",
-        "/tenant/master-data/customer-point",
-        "/tenant/master-data/customers",
-        "/tenant/master-data/customers-categories",
-        "/tenant/master-data/discounts_periodes",
         "/tenant/master-data/products",
-        "/tenant/master-data/sales",
-        "/tenant/master-data/stores",
-        "/tenant/master-data/suppliers",
-        "/tenant/master-data/unit"
+        "/tenant/penjualan/chasier",
+        "/tenant/penjualan/sales-invoice",
+        "/tenant/user/user-management"
       ]
     },
     "/_unauth/forgotPassword": {
       "filePath": "_unauth/forgotPassword.tsx"
+    },
+    "/_unauth/landingpage": {
+      "filePath": "_unauth/landingpage.tsx"
     },
     "/_unauth/register": {
       "filePath": "_unauth/register.tsx"
@@ -653,72 +373,20 @@ export const routeTree = rootRoute
     "/_unauth/": {
       "filePath": "_unauth/index.tsx"
     },
-    "/tenant/_stock/defecta": {
-      "filePath": "tenant/_stock/defecta.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/_stock/items": {
-      "filePath": "tenant/_stock/items.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/_stock/opname": {
-      "filePath": "tenant/_stock/opname.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/_stock/stock_history": {
-      "filePath": "tenant/_stock/stock_history.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/aditional-cost": {
-      "filePath": "tenant/master-data/aditional-cost.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/bank": {
-      "filePath": "tenant/master-data/bank.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/brand": {
-      "filePath": "tenant/master-data/brand.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/categories": {
-      "filePath": "tenant/master-data/categories.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/customer-point": {
-      "filePath": "tenant/master-data/customer-point.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/customers": {
-      "filePath": "tenant/master-data/customers.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/customers-categories": {
-      "filePath": "tenant/master-data/customers-categories.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/discounts_periodes": {
-      "filePath": "tenant/master-data/discounts_periodes.tsx",
-      "parent": "/tenant"
-    },
     "/tenant/master-data/products": {
       "filePath": "tenant/master-data/products.tsx",
       "parent": "/tenant"
     },
-    "/tenant/master-data/sales": {
-      "filePath": "tenant/master-data/sales.tsx",
+    "/tenant/penjualan/chasier": {
+      "filePath": "tenant/penjualan/chasier.tsx",
       "parent": "/tenant"
     },
-    "/tenant/master-data/stores": {
-      "filePath": "tenant/master-data/stores.tsx",
+    "/tenant/penjualan/sales-invoice": {
+      "filePath": "tenant/penjualan/sales-invoice.tsx",
       "parent": "/tenant"
     },
-    "/tenant/master-data/suppliers": {
-      "filePath": "tenant/master-data/suppliers.tsx",
-      "parent": "/tenant"
-    },
-    "/tenant/master-data/unit": {
-      "filePath": "tenant/master-data/unit.tsx",
+    "/tenant/user/user-management": {
+      "filePath": "tenant/user/user-management.tsx",
       "parent": "/tenant"
     }
   }
